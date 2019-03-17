@@ -73,7 +73,7 @@ class App extends Component {
         <ol className="center">
           {threads.map(hit => (
             <li key={hit.data.created_utc}>
-              <a href={hit.data.url}>{hit.data.title}</a>
+              <a href={hit.data.url} target="_blank">{hit.data.title}</a>
 
               <div className="italicize">stream links will appear here</div>
             </li>
