@@ -13,19 +13,44 @@ class App extends Component {
     this.state = {
       redditData: [],
       defaultQuery: "redux",
-      text: ""
+      text: "",
+      loading: true
     };
   }
 
   componentDidMount() {
     fetch(API)
       .then(response => response.json())
-      .then(data => this.setState({ redditData: data.data.children }));
+      .then(data =>
+        this.setState({ redditData: data.data.children, loading: false })
+      );
   }
 
+  commentFetch2 = theurl => {
+    console.log(theurl);
+    let test = "some random code";
+
+    return test;
+  };
+
+  commentFetch = url => {
+    //hey
+    let urlArr = [];
+    urlArr.push(url);
+
+    let links = this.commentFetch2(url);
+    console.log(links);
+    return <div> stream links will appear here </div>;
+  };
+
   render() {
-    const threads = this.state.redditData.filter(
+    /*const threads = this.state.redditData.filter(
       game => game.data.link_flair_css_class === "gamethread"
+    );
+    */
+    let reg = /^Game/;
+    const threads = this.state.redditData.filter(soccer =>
+      reg.test(soccer.data.title)
     );
     let d = new Date();
     let months = [
@@ -51,37 +76,41 @@ class App extends Component {
       "Friday",
       "Saturday"
     ];
-
-    return (
-      <div>
-        {/*<h2> Example Shit </h2>
-        <ol>
-          {this.state.redditData.map(hit => (
-            <li key={hit.data.created_utc}>
-              <a href={hit.data.url}>{hit.data.title}</a>
-            </li>
-          ))}
-        </ol>*/}
-        <br />
-        <h2
-          onClick={() => window.open("https://campusstreams.ga")}
-          className="weather"
-        >
+    let content;
+    if (this.state.loading) {
+      content = (
+        <h2 className="loading">
           {" "}
-          NBA Games for {days[d.getDay()]}, {months[d.getMonth()]} {d.getDate()}
+          grabbing all the latest nba games, hold up!{" "}
         </h2>
-        <ol className="center">
-          {threads.map(hit => (
-            <li key={hit.data.created_utc}>
-              <a href={hit.data.url} target="_blank">{hit.data.title}</a>
+      );
+    } else {
+      content = (
+        <div>
+          <br />
+          <h2
+            onClick={() => window.open("https://campusstreams.ga")}
+            className="weather"
+          >
+            {" "}
+            NBA Games for {days[d.getDay()]}, {months[d.getMonth()]}{" "}
+            {d.getDate()}
+          </h2>
+          <ol className="center">
+            {threads.map(hit => (
+              <li key={hit.data.created_utc}>
+                <a href={hit.data.url} target="_blank">
+                  {hit.data.title}
+                </a>
 
-              <div className="italicize">stream links will appear here</div>
-            </li>
-          ))}
-        </ol>
-        <div> </div>
-      </div>
-    );
+                <div className="italicize">stream links will appear here</div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      );
+    }
+    return <div> {content} </div>;
   }
 }
 
