@@ -53,6 +53,11 @@ class App extends Component {
       );
   }
 
+  removeGtTitle = title => {
+    //
+    return title.replace("Game Thread: ","")
+  }
+
   finalFunc = index => {
     let reg = /^Game/;
     const threads = this.state.redditData.filter(basketball =>
@@ -64,7 +69,7 @@ class App extends Component {
       let goodText = fuckyText.match(regexPattern);
       return (
         <a href={goodText[0]} target="_blank" className="italicize">
-          {goodText[0]}
+         Watch live in HD HERE
         </a>
       );
     }
@@ -168,14 +173,14 @@ class App extends Component {
             className="weather"
           >
             {" "}
-            NBA Games for {days[d.getDay()]}, {months[d.getMonth()]}{" "}
+            NBA Games goin on {days[d.getDay()]}, {months[d.getMonth()]}{" "}
             {d.getDate()}
           </h2>
           <ol className="center">
             {threads.map((hit, index) => (
               <li key={hit.data.created_utc}>
                 <a href={hit.data.url} target="_blank">
-                  {hit.data.title}
+                  {this.removeGtTitle(hit.data.title)}
                 </a>
 
                 {/*<div> {this.state.arr[index]} </div> */}
