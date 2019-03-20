@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/nbareact2/static/js/runtime~main.29b75276.js"
   },
   {
-    "revision": "fc37396b7d0a95f96b13",
-    "url": "/nbareact2/static/js/main.47a253ec.chunk.js"
+    "revision": "5c36e052ddf36a330447",
+    "url": "/nbareact2/static/js/main.51790432.chunk.js"
   },
   {
     "revision": "e93bc7dff72ddddbd85a",
     "url": "/nbareact2/static/js/2.a81b9cc6.chunk.js"
   },
   {
-    "revision": "fc37396b7d0a95f96b13",
+    "revision": "5c36e052ddf36a330447",
     "url": "/nbareact2/static/css/main.a8bd7f6b.chunk.css"
   },
   {
-    "revision": "893994db4b812f2b265762a5ff622a57",
+    "revision": "d672bf094a7fc900e6bb48d8602b39b9",
     "url": "/nbareact2/index.html"
   }
 ];
