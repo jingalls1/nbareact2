@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import { Component } from "react";
-import basketball from "./basketball.png";
 
 const API = "https://www.reddit.com/r/nbastreams.json";
 const topStream = "";
@@ -22,17 +21,21 @@ class App extends Component {
       num2: 0,
       num3: 0,
       linksArr: [],
+      dataArr: [],
       firstArr: [],
       secondArr: [],
       thirdArr: [],
       fourthArr: [],
       fifthArr: [],
+      justtest: <div> buddy boy </div>,
       arr: [
         "first link",
         "second link",
         "third link",
         "fourth link",
-        "fifth link"
+        "fifth link",
+        "sixth link",
+        "seventh link"
       ],
       first: "",
       second: "",
@@ -50,32 +53,38 @@ class App extends Component {
       );
   }
 
-  dataObject = data => {
-    //console.log(JSON.stringify(data));
-    if (this.state.num3 === 1) {
-      console.log("the first link", this.state.num3);
-      let stateArr = this.state.firstArr;
-      let dataCopy = data.slice();
-      stateArr.push(dataCopy);
-      this.setState({ firstArr: stateArr });
-      console.log(data);
-      console.log("you beter fucking save 1:36am 3/20/19");
-    } else if (this.state.num3 === 2) {
-      console.log("second", this.state.num3);
-      let stateArr = this.state.secondArr;
-      let dataCopy = data.slice();
-      stateArr.push(dataCopy);
-      this.setState({ secondArr: stateArr });
-      console.log(data);
-      //basically what your doing is
-      //creating an else if statement for each this.state.num3
-      //which represents each comment data coming in for each page
+  finalFunc = index => {
+    let reg = /^Game/;
+    const threads = this.state.redditData.filter(basketball =>
+      reg.test(basketball.data.title)
+    );
+    if (threads.length === this.state.dataArr.length) {
+      console.log(this.state.dataArr[index][1].data.children[1].data.body);
+      let fuckyText = this.state.dataArr[index][1].data.children[2].data.body;
+      let goodText = fuckyText.match(regexPattern);
+      return (
+        <a href={goodText[0]} target="_blank" className="italicize">
+          {goodText[0]}
+        </a>
+      );
     }
   };
 
+  dataObject = data => {
+    //console.log(JSON.stringify(data));
+    //console.log("the first link", this.state.num3);
+    let stateArr = this.state.dataArr;
+    let dataCopy = data.slice();
+    stateArr.push(dataCopy);
+    this.setState({ dataArr: stateArr });
+    //console.log(data);
+    //console.log("you beter fucking save 1:36am 3/20/19");
+  };
+
   componentDidUpdate() {
-    const threads = this.state.redditData.filter(
-      game => game.data.link_flair_css_class === "gamethread"
+    let reg = /^Game/;
+    const threads = this.state.redditData.filter(basketball =>
+      reg.test(basketball.data.title)
     );
     let commentArr = [];
     debugger;
@@ -85,13 +94,13 @@ class App extends Component {
       }
       this.setState({ num: this.state.num + 1, linksArr: commentArr });
     }
-    console.log(this.state.linksArr.length);
+    //console.log(this.state.linksArr.length);
     if (this.state.num2 < 1 && this.state.linksArr.length > 0) {
       //do the shit in here only once
       //allows you to update the state in the didUpdate()
       for (let i = 0; i < this.state.linksArr.length; i++) {
         //fetch in here each of comment links
-        console.log(this.state.linksArr[0]);
+        //console.log(this.state.linksArr[0]);
         fetch(this.state.linksArr[i] + ".json")
           .then(response => response.json())
           .then(data => this.dataObject(data));
@@ -99,12 +108,24 @@ class App extends Component {
       }
       this.setState({ num2: this.state.num2 + 1 });
     }
-    //console.log(this.state.linksArr);
+    // console.log('num of threads',threads.length)
+    // console.log('num of data arr',this.state.dataArr.length)
+    if (threads.length === this.state.dataArr.length) {
+      console.log("cant believe you got this far");
+      // console.log(this.state.dataArr);
+      // //the first array index value will actually be the map index
+      // console.log(this.state.dataArr[0][1].data.children[1].data.body);
+    }
   }
 
   render() {
-    const threads = this.state.redditData.filter(
+    /*const threads = this.state.redditData.filter(
       game => game.data.link_flair_css_class === "gamethread"
+    );
+    */
+    let reg = /^Game/;
+    const threads = this.state.redditData.filter(basketball =>
+      reg.test(basketball.data.title)
     );
     let d = new Date();
     let months = [
@@ -157,20 +178,12 @@ class App extends Component {
                   {hit.data.title}
                 </a>
 
-                <div className="italicize">stream links will appear here</div>
-                <div> {this.state.arr[index]} </div>
+                {/*<div> {this.state.arr[index]} </div> */}
+                <div> {this.finalFunc(index)} </div>
+                <br />
               </li>
             ))}
           </ol>
-          <div className="center">
-            {" "}
-            <img
-              src={basketball}
-              alt="basketball img"
-              height="60"
-              width="60"
-            />{" "}
-          </div>
         </div>
       );
     }
