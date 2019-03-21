@@ -125,7 +125,7 @@ class App extends Component {
 
   renderList = threads => {
     if (threads.length === 0) {
-      return <li> No NFL games goin on right now. Check back later! </li>;
+      return <li> No NBA games goin on right now. Check back later! </li>;
     } else {
       return threads.map((hit, index) => (
         <li key={hit.data.created_utc}>
