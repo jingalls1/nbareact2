@@ -55,8 +55,8 @@ class App extends Component {
 
   removeGtTitle = title => {
     //
-    return title.replace("Game Thread: ","")
-  }
+    return title.replace("Game Thread: ", "");
+  };
 
   finalFunc = index => {
     let reg = /^Game/;
@@ -69,7 +69,7 @@ class App extends Component {
       let goodText = fuckyText.match(regexPattern);
       return (
         <a href={goodText[0]} target="_blank" className="italicize">
-         Watch live in HD HERE
+          Watch live in HD HERE
         </a>
       );
     }
@@ -123,6 +123,24 @@ class App extends Component {
     }
   }
 
+  renderList = threads => {
+    if (threads.length === 0) {
+      return <li> No NFL games goin on right now. Check back later! </li>;
+    } else {
+      return threads.map((hit, index) => (
+        <li key={hit.data.created_utc}>
+          <a href={hit.data.url} target="_blank">
+            {this.removeGtTitle(hit.data.title)}
+          </a>
+
+          {/*<div> {this.state.arr[index]} </div> */}
+          <div> {this.finalFunc(index)} </div>
+          <br />
+        </li>
+      ));
+    }
+  };
+
   render() {
     /*const threads = this.state.redditData.filter(
       game => game.data.link_flair_css_class === "gamethread"
@@ -161,7 +179,10 @@ class App extends Component {
       content = (
         <h2 className="loading">
           {" "}
-          grabbing all the latest nba games, hold up!{" "}
+          grabbing all the latest nba games, hold up! <br />
+          <br />
+          <br />
+          <div class="loader"> </div>
         </h2>
       );
     } else {
@@ -173,22 +194,10 @@ class App extends Component {
             className="weather"
           >
             {" "}
-            NBA Games goin on {days[d.getDay()]}, {months[d.getMonth()]}{" "}
+            NBA Games for {days[d.getDay()]}, {months[d.getMonth()]}{" "}
             {d.getDate()}
           </h2>
-          <ol className="center">
-            {threads.map((hit, index) => (
-              <li key={hit.data.created_utc}>
-                <a href={hit.data.url} target="_blank">
-                  {this.removeGtTitle(hit.data.title)}
-                </a>
-
-                {/*<div> {this.state.arr[index]} </div> */}
-                <div> {this.finalFunc(index)} </div>
-                <br />
-              </li>
-            ))}
-          </ol>
+          <ol className="center">{this.renderList(threads)}</ol>
         </div>
       );
     }
