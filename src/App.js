@@ -54,11 +54,11 @@ class App extends Component {
     );
     if (threads.length === this.state.dataArr.length) {
       console.log(this.state.dataArr[index][1].data.children[1].data.body);
-      let fuckyText = this.state.dataArr[index][1].data.children[2].data.body;
+      let fuckyText = this.state.dataArr[index][1].data.children[1].data.body;
       let goodText = fuckyText.match(regexPattern);
       return (
         <a href={goodText[0]} target="_blank" className="italicize">
-          Watch live in HD HERE
+          Watch live here
         </a>
       );
     }
