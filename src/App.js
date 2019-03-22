@@ -22,12 +22,6 @@ class App extends Component {
       num3: 0,
       linksArr: [],
       dataArr: [],
-      firstArr: [],
-      secondArr: [],
-      thirdArr: [],
-      fourthArr: [],
-      fifthArr: [],
-      justtest: <div> buddy boy </div>,
       arr: [
         "first link",
         "second link",
@@ -36,12 +30,7 @@ class App extends Component {
         "fifth link",
         "sixth link",
         "seventh link"
-      ],
-      first: "",
-      second: "",
-      third: "",
-      fourth: "",
-      fifth: ""
+      ]
     };
   }
 
@@ -129,7 +118,7 @@ class App extends Component {
     } else {
       return threads.map((hit, index) => (
         <li key={hit.data.created_utc}>
-          <a href={hit.data.url} target="_blank">
+          <a href={hit.data.url} target="_blank" style={{fontSize: 20}}>
             {this.removeGtTitle(hit.data.title)}
           </a>
 
