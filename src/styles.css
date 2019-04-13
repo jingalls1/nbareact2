@@ -29,6 +29,12 @@ body {
 
 .italicize {
   font-style: italic;
+  font-size: 0.8em;
+}
+
+.boldTitle {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 .loading {

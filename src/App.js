@@ -45,9 +45,20 @@ class App extends Component {
   }
 
   removeGtTitle = title => {
-    //
     return title.replace("Game Thread: ", "");
   }
+
+  removeHTTP = title => {
+    if (title.includes("https")) {
+      let removeStart = title.replace("https://", "");
+      let removeEnd = removeStart.split("/")[0];
+      return removeEnd;
+    } else {
+      let removeStart = title.replace("http://","");
+      let removeEnd = removeStart.split("/")[0];
+      return removeEnd;
+    }
+  };
 
   finalFunc = index => {
     let reg = /^Game/;
@@ -62,20 +73,21 @@ class App extends Component {
       let goodText1 = fuckyText1.match(regexPattern);
       let fuckyText2 = this.state.dataArr[index][1].data.children[3].data.body;
       let goodText2 = fuckyText2.match(regexPattern);
+      console.log(goodText[0]);
 
       //console.log(JSON.stringify(this.state.dataArr[index][1].data.children))
       return (
         <div>
         <a href={goodText[0]} target="_blank" className="italicize">
-          Watch live link #1
+          live link #1 ({this.removeHTTP(goodText[0])})
         </a>
         <br/>
         <a href={goodText1[0]} target="_blank" className="italicize">
-          Watch live link #2
+          live link #2 ({this.removeHTTP(goodText1[0])})
         </a>
         <br/>
         <a href={goodText2[0]} target="_blank" className="italicize">
-          Watch live link #3
+          live link #3 ({this.removeHTTP(goodText2[0])})
         </a>
         </div>
       );
@@ -135,7 +147,7 @@ class App extends Component {
     } else {
       return threads.map((hit, index) => (
         <li key={hit.data.created_utc}>
-          <a href={hit.data.url} target="_blank" style={{fontWeight: "bold"}}>
+          <a href={hit.data.url} target="_blank" className="boldTitle">
             {this.removeGtTitle(hit.data.title)}
           </a>
 
