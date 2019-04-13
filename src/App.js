@@ -1,5 +1,7 @@
+// jshint esversion: 6
+
 import React from "react";
-import ReactDOM from "react-dom";
+//import ReactDOM from "react-dom";
 import "./styles.css";
 import { Component } from "react";
 
@@ -45,7 +47,7 @@ class App extends Component {
   removeGtTitle = title => {
     //
     return title.replace("Game Thread: ", "");
-  };
+  }
 
   finalFunc = index => {
     let reg = /^Game/;
@@ -53,13 +55,29 @@ class App extends Component {
       reg.test(basketball.data.title)
     );
     if (threads.length === this.state.dataArr.length) {
-      console.log(this.state.dataArr[index][1].data.children[1].data.body);
+      //console.log('SHITSTAIN',this.state.dataArr[index][1].data.children[1].data.body);
       let fuckyText = this.state.dataArr[index][1].data.children[1].data.body;
       let goodText = fuckyText.match(regexPattern);
+      let fuckyText1 = this.state.dataArr[index][1].data.children[2].data.body;
+      let goodText1 = fuckyText1.match(regexPattern);
+      let fuckyText2 = this.state.dataArr[index][1].data.children[3].data.body;
+      let goodText2 = fuckyText2.match(regexPattern);
+
+      //console.log(JSON.stringify(this.state.dataArr[index][1].data.children))
       return (
+        <div>
         <a href={goodText[0]} target="_blank" className="italicize">
-          Watch live here
+          Watch live link #1
         </a>
+        <br/>
+        <a href={goodText1[0]} target="_blank" className="italicize">
+          Watch live link #2
+        </a>
+        <br/>
+        <a href={goodText2[0]} target="_blank" className="italicize">
+          Watch live link #3
+        </a>
+        </div>
       );
     }
   };
@@ -81,7 +99,6 @@ class App extends Component {
       reg.test(basketball.data.title)
     );
     let commentArr = [];
-    debugger;
     if (this.state.num < threads.length) {
       for (let i = 0; i < threads.length; i++) {
         commentArr.push(threads[i].data.url);
