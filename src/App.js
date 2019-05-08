@@ -73,6 +73,8 @@ class App extends Component {
       let goodText1 = fuckyText1.match(regexPattern);
       let fuckyText2 = this.state.dataArr[index][1].data.children[3].data.body;
       let goodText2 = fuckyText2.match(regexPattern);
+      let fuckyText3 = this.state.dataArr[index][1].data.children[4].data.body;
+      let goodText3 = fuckyText3.match(regexPattern);
       console.log(goodText[0]);
 
       //console.log(JSON.stringify(this.state.dataArr[index][1].data.children))
@@ -88,6 +90,10 @@ class App extends Component {
         <br/>
         <a href={goodText2[0]} target="_blank" className="italicize">
           live link #3 ({this.removeHTTP(goodText2[0])})
+        </a>
+        <br/>
+        <a href={goodText3[0]} target="_blank" className="italicize">
+          live link #4 ({this.removeHTTP(goodText3[0])})
         </a>
         </div>
       );
